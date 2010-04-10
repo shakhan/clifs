@@ -1,0 +1,36 @@
+http://twitter.com/shakhan
+
+A CLI for the file system which uses node.js
+
+NOTE: Most of the stuff here is filched from xkcdfools & streehoarding
+      and there is no LICENSE per say. Check it out.
+
+---
+
+Thanks
+
+- Ryan Dahl for Node.js
+  http://nodejs.org
+
+- Chromakode for the excellent xkcd cli
+  http://github.com/chromakode/xkcdfools
+
+---
+
+Initial setup
+
+- Install Node.js
+  - In your terminal
+      git clone git://github.com/ry/node.git
+      cd node
+      ./configure
+      make
+      sudo make install
+
+- Install clifs
+  - In your terminal
+      git clone git://github.com/shakhan/clifs
+      cd clifs
+      node server.js
+  - In your web browser
+      - Visit http://localhost:3000
