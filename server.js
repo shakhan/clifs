@@ -1,6 +1,7 @@
 var sys = require("sys");
 var url = require("url");
 var fs = require("fs");
+var childp = require("child_process");
 var path = require("path");
 var qs = require("querystring");
 var fu = require("./fu");
@@ -42,7 +43,7 @@ fu.get("/c_cd", function (req, res) {
 });
 
 fu.get("/c_pwd", function (req, res) {
-	sys.exec("pwd", function (err, stdout, stderr) {
+	childp.exec("pwd", function (err, stdout, stderr) {
   		if (err)
   			res.simpleJSON(200, {});
   		res.simpleJSON(200, { message: stdout });
@@ -64,7 +65,7 @@ fu.get("/c_cat", function (req, res) {
 	var currentdir = qs.parse(url.parse(req.url).query).currentdir;
 	var file = qs.parse(url.parse(req.url).query).file;
 	file = path.normalize(currentdir + '/' + file);
-    fs.readFile(file, function (err, data) {
+        fs.readFile(file, 'utf8', function (err, data) {
 		if (!err) {
 			res.simpleJSON(200, { message: data });
 		}        
