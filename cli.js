@@ -112,7 +112,7 @@ var Terminal = {
 		prompt:				'user@clifs:/$ ',
 		spinnerCharacters:	['[   ]','[.  ]','[.. ]','[...]'],
 		spinnerSpeed:		250,
-		typingSpeed:		50
+		typingSpeed:		70
 	},
 	
 	sticky: {

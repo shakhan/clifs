@@ -26,6 +26,7 @@ $(document).ready(function() {
 clifs.util = function() {
 	function func(terminal) {
 		terminal.print('Use "pwd", "ls | dir", "cat", and "cd" to navigate the filesystem.');
+		terminal.print('Use "ps" to see a snapshot of the process activity on the system.');
 		terminal.print('Use "sleep", "shutdown | poweroff", "logout | exit | quit", and "restart | reboot" to control the CLI.');
 	};
 	return {
@@ -101,6 +102,20 @@ clifs.nav = function() {
 		},
 		pwd : function(terminal) {
 			terminal.print(TerminalShell.currentdir);
+		},
+		ps : function(terminal, path) {
+			jQuery.get("/c_ps",
+				{currentdir: this.currentdir, file: path},
+				function (data) {
+					if(data && data.message) {
+						var browser = $('<div>')
+							.addClass('browser')
+							.html('<pre>'+data.message+'</pre>').width("95%").height(400);
+		                terminal.print(browser);
+					}
+				},
+				"json"
+			);	
 		}
 	}
 }();
@@ -151,6 +166,7 @@ TerminalShell.commands['dir'] = TerminalShell.commands['ls'] = clifs.nav.list;	/
 TerminalShell.commands['cat'] = clifs.nav.cat;									/* cat */
 TerminalShell.commands['cd'] = clifs.nav.cd;									/* cd */
 TerminalShell.commands['pwd'] = clifs.nav.pwd;									/* pwd */
+TerminalShell.commands['ps'] = clifs.nav.ps;									/* ps */
 
 TerminalShell.commands['shutdown'] = TerminalShell.commands['poweroff'] = clifs.cntrl.shutdown;							/* shutdown | poweroff */
 TerminalShell.commands['logout'] = TerminalShell.commands['exit'] = TerminalShell.commands['quit'] = clifs.cntrl.exit;	/* logout | exit | quit */

@@ -77,6 +77,20 @@ fu.get("/c_cat", function (req, res) {
 	});
 });
 
+fu.get("/c_ps", function (req, res) {
+	childp.exec("ps -W", function (err, stdout, stderr) {
+  		if (err)
+  			res.simpleJSON(200, {});
+  		res.simpleJSON(200, { message: stdout });
+	});	
+});
+
+endSetup();
+
 function initialSetup() {
 	sys.puts("Booting up...");
+}
+
+function endSetup() {
+	sys.puts("Ready");
 }
