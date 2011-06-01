@@ -46,13 +46,18 @@ fu.get("/c_pwd", function (req, res) {
 	childp.exec("pwd", function (err, stdout, stderr) {
   		if (err)
   			res.simpleJSON(200, {});
-  		res.simpleJSON(200, { message: stdout });
+		var dirname = stdout.replace(
+			new RegExp( "\\n", "g" ),
+			""
+		);	
+  		res.simpleJSON(200, { message: dirname });
 	});	
 });
 
 fu.get("/c_ls", function (req, res) {
 	var currentdir = qs.parse(url.parse(req.url).query).currentdir;
 	var message = [];
+	console.log('directory is: ['+currentdir+']');
 	var files = fs.readdirSync(currentdir);
 	files.forEach(function(file) {
 		var stats = fs.statSync(path.normalize(currentdir + '/' + file));
